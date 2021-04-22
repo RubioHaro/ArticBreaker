@@ -37,18 +37,21 @@ def hacerPin():
                 os.system("clear")
                 print ("RED 255.255.X.X ANALIZANDO IP: "+composicionIp[0]+"."+composicionIp[1]+"."+str(i+1)+"."+str(j+1))
     else:
-        p1 = Process(target=f, args=(0,63, composicionIp))
-        p2 = Process(target=f, args=(64,127, composicionIp))
-        p3 = Process(target=f, args=(128,192, composicionIp))
-        p4 = Process(target=f, args=(193,254, composicionIp))
+        p1 = Process(target=f, args=(0,51, composicionIp))
+        p2 = Process(target=f, args=(52,101, composicionIp))
+        p3 = Process(target=f, args=(102,153, composicionIp))
+        p4 = Process(target=f, args=(154,203, composicionIp))
+        p5 = Process(target=f, args=(204,254, composicionIp))
         p1.start()
         p2.start()
         p3.start()
         p4.start()
+        p5.start()
         p1.join()
         p2.join()
         p3.join()
         p4.join()
+        p5.join()
 
 ipValidadas = []
 
@@ -69,7 +72,7 @@ for i in listaIP:
     dirFin = dirIni+2
     typOcteto = int(i[dirIni:dirFin])
 hacerPin()
-print("Se encontraron:" + len(ipValidadas))
+print("Se encontraron:", len(ipValidadas))
 for j in ipValidadas:
     print(j)
 print("El programa ha concludio sus procesos.")
