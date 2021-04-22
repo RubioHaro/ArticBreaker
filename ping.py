@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import os
+from multiprocessing import Process
 
 def obtienePing (cPing):
     resp = os.popen(cPing).read()+"--"
@@ -30,15 +31,25 @@ def hacerPin():
                 os.system("clear")
                 print ("SE ANALIZARA UNA RED DE TIPO 255.255.X.X \n ANALIZANDO IP: "+composicionIp[0]+"."+composicionIp[1]+"."+str(i+1)+"."+str(j+1))
     else:
-        for i in range(254):
-            comandoPing = ""
-            comandoPing= "ping -c 1 "+composicionIp[0]+"."+composicionIp[1]+"."+composicionIp[2]+"."+str(i+1)+" | grep ttl"
-            obtienePing(comandoPing)
-            os.system("clear")
-            print ("SE ANALIZARA UNA RED DE TIPO 255.255.255.X \n ANALIZANDO IP: "+composicionIp[0]+"."+composicionIp[1]+"."+composicionIp[2]+"."+str(i+1))
+        p1 = Process(target=f, args=(0,127))
+        p2 = Process(target=f, args=(128,254))
+        p1.start()
+        p2.start()
+        p1.join()
+        p2.join()
 
+def f(start, stop):
+    for i in range(start, stop):
+        comandoPing = ""
+        comandoPing= "ping -c 1 "+composicionIp[0]+"."+composicionIp[1]+"."+composicionIp[2]+"."+str(i+1)+" | grep ttl"
+        obtienePing(comandoPing)
+        os.system("clear")
+        print ("SE ANALIZARA UNA RED DE TIPO 255.255.255.X \n ANALIZANDO IP: "+composicionIp[0]+"."+composicionIp[1]+"."+composicionIp[2]+"."+str(i+1))
+        info('function f')
+        print('hello', name)
 
 ipValidadas = []
+
 comandoIP = "ip addr | grep inet | grep brd"
 obtieneIP = os.popen(comandoIP).read()
 listaIP = obtieneIP.split("\n")
