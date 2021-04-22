@@ -8,8 +8,8 @@ def obtienePing (cPing):
     if resp != "--":
         ipValidadas.append(resp)
 
-def f(start, stop):
-    for i in range(start, stop, composicionIp):
+def f(start, stop, composicionIp):
+    for i in range(start, stop):
         comandoPing = ""
         comandoPing= "ping -c 1 "+composicionIp[0]+"."+composicionIp[1]+"."+composicionIp[2]+"."+str(i+1)+" | grep ttl"
         obtienePing(comandoPing)
@@ -69,8 +69,7 @@ for i in listaIP:
     dirFin = dirIni+2
     typOcteto = int(i[dirIni:dirFin])
 hacerPin()
-cant = len(ipValidadas)
-print("Se encontraron:" + cant)
+print("Se encontraron:" + len(ipValidadas))
 for j in ipValidadas:
     print(j)
 print("El programa ha concludio sus procesos.")
