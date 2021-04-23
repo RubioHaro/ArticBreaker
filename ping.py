@@ -3,16 +3,16 @@
 import os
 from multiprocessing import Process
 
-def obtienePing (cPing):
+def obtienePing (cPing, listip):
     resp = os.popen(cPing).read()+"--"
     if resp != "--":
-        ipValidadas.append(resp)
+        listip.append(resp)
 
-def f(start, stop, composicionIp):
+def f(start, stop, composicionIp, listip_n):
     for i in range(start, stop):
         comandoPing = ""
         comandoPing= "ping -c 1 "+composicionIp[0]+"."+composicionIp[1]+"."+composicionIp[2]+"."+str(i+1)+" | grep ttl"
-        obtienePing(comandoPing)
+        obtienePing(comandoPing, listip_n)
         print ("TIPO 255.255.255.X ANALIZANDO IP: "+composicionIp[0]+"."+composicionIp[1]+"."+composicionIp[2]+"."+str(i+1))
 
 def hacerPin():
@@ -37,12 +37,18 @@ def hacerPin():
                 os.system("clear")
                 print ("RED 255.255.X.X ANALIZANDO IP: "+composicionIp[0]+"."+composicionIp[1]+"."+str(i+1)+"."+str(j+1))
     else:
-        ## Timing 2.39s 5 processes
-        p1 = Process(target=f, args=(0,51, composicionIp))
-        p2 = Process(target=f, args=(52,101, composicionIp))
-        p3 = Process(target=f, args=(102,153, composicionIp))
-        p4 = Process(target=f, args=(154,203, composicionIp))
-        p5 = Process(target=f, args=(204,254, composicionIp))
+        listip_1 = []
+        listip_2 = []
+        listip_3 = []
+        listip_4 = []
+        listip_5 = []
+
+        ## Timing 2.39m 5 processes Original time: 13.13m lineal
+        p1 = Process(target=f, args=(0,51, composicionIp, listip_1))
+        p2 = Process(target=f, args=(52,101, composicionIp, listip_2))
+        p3 = Process(target=f, args=(102,153, composicionIp, listip_3))
+        p4 = Process(target=f, args=(154,203, composicionIp, listip_4))
+        p5 = Process(target=f, args=(204,254, composicionIp, listip_5))
         p1.start()
         p2.start()
         p3.start()
@@ -53,6 +59,18 @@ def hacerPin():
         p3.join()
         p4.join()
         p5.join()
+        
+        for j in listip_1:
+            print(j)
+        for j in listip_2:
+            print(j)
+        for j in listip_3:
+            print(j)
+        for j in listip_4:
+            print(j)
+        for j in listip_5:
+            print(j)
+        
 
 ipValidadas = []
 
