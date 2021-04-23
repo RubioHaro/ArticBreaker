@@ -37,11 +37,6 @@ def hacerPin():
                 os.system("clear")
                 print ("RED 255.255.X.X ANALIZANDO IP: "+composicionIp[0]+"."+composicionIp[1]+"."+str(i+1)+"."+str(j+1))
     else:
-        listip_1 = []
-        listip_2 = []
-        listip_3 = []
-        listip_4 = []
-        listip_5 = []
 
         ## Timing 2.39m 5 processes Original time: 13.13m lineal
         p1 = Process(target=f, args=(0,51, composicionIp, listip_1))
@@ -60,19 +55,14 @@ def hacerPin():
         p4.join()
         p5.join()
         
-        for j in listip_1:
-            print(j)
-        for j in listip_2:
-            print(j)
-        for j in listip_3:
-            print(j)
-        for j in listip_4:
-            print(j)
-        for j in listip_5:
-            print(j)
-        
 
 ipValidadas = []
+
+listip_1 = []
+listip_2 = []
+listip_3 = []
+listip_4 = []
+listip_5 = []
 
 comandoIP = "ip addr | grep inet | grep brd"
 obtieneIP = os.popen(comandoIP).read()
@@ -93,5 +83,17 @@ for i in listaIP:
 hacerPin()
 print("Se encontraron:", len(ipValidadas))
 for j in ipValidadas:
+    print(j)
+    
+print("IP's Encontradas:")
+for j in listip_1:
+    print(j)
+for j in listip_2:
+    print(j)
+for j in listip_3:
+    print(j)
+for j in listip_4:
+    print(j)
+for j in listip_5:
     print(j)
 print("El programa ha concludio sus procesos.")
