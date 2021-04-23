@@ -6,7 +6,9 @@ from multiprocessing import Process
 def obtienePing (cPing, listip):
     resp = os.popen(cPing).read()+"--"
     if resp != "--":
+        ipValidadas.append(resp)
         listip.append(resp)
+        print(resp)
 
 def f(start, stop, composicionIp, listip_n):
     for i in range(start, stop):
