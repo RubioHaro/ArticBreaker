@@ -2,8 +2,6 @@
 
 import os
 import threading
-import paramiko
-import getpass
 
 def getPing (ping_command, parsed_ip):
     response = os.popen(ping_command).read() + "--"
@@ -64,7 +62,10 @@ print(len(answered_ips), " ips founded!")
 
 for j in answered_ips:
     print(j)
-    
+
+import paramiko
+import getpass
+
 ssh_client=paramiko.SSHClient()
 ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 for j in answered_ips:
