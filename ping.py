@@ -62,7 +62,7 @@ print(len(answered_ips), " ips founded!")
 
 for j in answered_ips:
     print(j)
-
+        
 import paramiko
 import getpass
 
@@ -70,7 +70,6 @@ import getpass
 def startParamiko(host, ssh_client):
     print("ArticBraker: Initializing paramiko ssh connection")
     print('hostname:', host)
-    host = input()
     print('Enter your username:')
     user = input()
 
@@ -101,6 +100,10 @@ def startParamiko(host, ssh_client):
 ssh_client=paramiko.SSHClient()
 ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 for j in answered_ips:
-    startParamiko(j,ssh_client)
+    print(j)
+    print("Send file? Y/N")
+    res = input()
+    if res in ['y', 'Y', 'yes', 'Yes', 'YES']:
+        startParamiko(j,ssh_client)
 
 print("The program has exited.")
