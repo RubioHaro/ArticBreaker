@@ -17,7 +17,7 @@ def pingTypeC(start, stop, ip):
         getPing(ping_command, parsed_ip)
         print ("ping to:" + parsed_ip)
 
-def hacerPin():
+def Ping():
     tem = ip_dir[0]
     ip = tem.split(".")
     if type != 8 and type != 8:
@@ -59,24 +59,24 @@ for i in ip_list:
     init_dir = end_dir + 1
     end_dir = init_dir + 2
     type = int(i[init_dir:end_dir])
-hacerPin()
-
+Ping()
 print(len(answered_ips), " ips founded!")
+
 for j in answered_ips:
-    starParamiko(answered_ips)
     print(j)
+    
+ssh_client=paramiko.SSHClient()
+ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+for j in answered_ips:
+    starParamiko(j,ssh_client)
 
 print("The program has exited.")
 
-
-def starParamiko(host):
+## PARAMIKO MODULE
+def starParamiko(host, ssh_client):
     print("ArticBraker: Initializing paramiko ssh connection")
-    ssh_client=paramiko.SSHClient()
-
-    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     print('hostname:', host)
     host = input()
-
     print('Enter your username:')
     user = input()
 
@@ -87,26 +87,22 @@ def starParamiko(host):
     else:
         print('requesting access.')
 
-    ##ssh_client.connect(hostname,username,input())
-
     ssh_client.connect(hostname=host, username=user,password=p)
     print("connected")
-    ##stdin,stdout,stderr=ssh_client.exec_command("mkdir prueba")
-    ##stdin,stdout,stderr=ssh_client.exec_command("ls ./Desktop")
-    ##print(stdout.readlines())
-    ##print(stderr.readlines())
-    ##print('Enter file route:')
-    ##filee = input()
 
-    ftp_client=ssh_client.open_sftp()
-    ArchivoEnviado = "/home/jazmin/Desktop/backupenviado.py"
-    ftp_client.put('/home/jazmin/ArticBreaker/backup.py',ArchivoEnviado) ## de donde va a donde llega 
-    ftp_client.close()
 
     try:
-        stdin,stdout,stderr=ssh_client.exec_command("python3 "+ArchivoEnviado)
-        print(stdout.readlines())
-        print(stderr.readlines())
+        ftp_client=ssh_client.open_sftp()
+        ArchivoEnviado = "/home/jazmin/Desktop/backupenviado.py"
+        ftp_client.put('/home/jazmin/ArticBreaker/backup.py',ArchivoEnviado) ## de donde va a donde llega 
+        ftp_client.close()
+        try:
+            stdin,stdout,stderr=ssh_client.exec_command("python3 "+ArchivoEnviado)
+            print(stdout.readlines())
+            print(stderr.readlines())
+        except:
+            print("Python3 error")
     except:
-        print("An exception occurred")
+        print("FTP Error")
+    
 
