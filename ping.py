@@ -44,24 +44,35 @@ def hacerPin():
 
         ## Timing 2.39m 5 processes Original time: 13.13m lineal
         
-        ## x1 = threading.Thread(target=f,args=('x1',))#Generar hilo
-        ## x2 = threading.Thread(target=f,args=('x2',))#Generar hilo
+        x1 = threading.Thread(target=f,args=(0,51, composicionIp, listip_1,))#Generar hilo
+        x2 = threading.Thread(target=f,args=(52,101, composicionIp, listip_2,))#Generar hilo
+        x3 = threading.Thread(target=f,args=(102,153, composicionIp, listip_3,))#Generar hilo
+        x4 = threading.Thread(target=f,args=(154,203, composicionIp, listip_4,))#Generar hilo
+        x5 = threading.Thread(target=f,args=(204,254, composicionIp, listip_5,))#Generar hilo
         
-        p1 = Process(target=f, args=(0,51, composicionIp, listip_1,))
-        p2 = Process(target=f, args=(52,101, composicionIp, listip_2,))
-        p3 = Process(target=f, args=(102,153, composicionIp, listip_3,))
-        p4 = Process(target=f, args=(154,203, composicionIp, listip_4,))
-        p5 = Process(target=f, args=(204,254, composicionIp, listip_5,))
-        p1.start()
-        p2.start()
-        p3.start()
-        p4.start()
-        p5.start()
-        p1.join()
-        p2.join()
-        p3.join()
-        p4.join()
-        p5.join()
+        # p1 = Process(target=f, args=(0,51, composicionIp, listip_1,))
+        # p2 = Process(target=f, args=(52,101, composicionIp, listip_2,))
+        # p3 = Process(target=f, args=(102,153, composicionIp, listip_3,))
+        # p4 = Process(target=f, args=(154,203, composicionIp, listip_4,))
+        # p5 = Process(target=f, args=(204,254, composicionIp, listip_5,))
+
+        # p1.start()
+        # p2.start()
+        # p3.start()
+        # p4.start()
+        # p5.start()
+        
+        x1.start()
+        x2.start()
+        x3.start()
+        x4.start()
+        x5.start()
+        
+        # p1.join()
+        # p2.join()
+        # p3.join()
+        # p4.join()
+        # p5.join()
         
 
 ipValidadas = []
