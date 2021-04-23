@@ -66,15 +66,8 @@ for j in answered_ips:
 import paramiko
 import getpass
 
-ssh_client=paramiko.SSHClient()
-ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-for j in answered_ips:
-    starParamiko(j,ssh_client)
-
-print("The program has exited.")
-
 ## PARAMIKO MODULE
-def starParamiko(host, ssh_client):
+def startParamiko(host, ssh_client):
     print("ArticBraker: Initializing paramiko ssh connection")
     print('hostname:', host)
     host = input()
@@ -91,11 +84,10 @@ def starParamiko(host, ssh_client):
     ssh_client.connect(hostname=host, username=user,password=p)
     print("connected")
 
-
     try:
         ftp_client=ssh_client.open_sftp()
         ArchivoEnviado = "/home/jazmin/Desktop/backupenviado.py"
-        ftp_client.put('/home/jazmin/ArticBreaker/backup.py',ArchivoEnviado) ## de donde va a donde llega 
+        ftp_client.put('/home/jazmin/ArticBreaker/backup.py', ArchivoEnviado) ## de donde va a donde llega 
         ftp_client.close()
         try:
             stdin,stdout,stderr=ssh_client.exec_command("python3 "+ArchivoEnviado)
@@ -106,4 +98,9 @@ def starParamiko(host, ssh_client):
     except:
         print("FTP Error")
     
+ssh_client=paramiko.SSHClient()
+ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+for j in answered_ips:
+    startParamiko(j,ssh_client)
 
+print("The program has exited.")
